@@ -21,8 +21,7 @@ create table bbs
 		primary key (idx)
 );
 ```
-Query 사용
-`select title, content, DATE_FORMAT(regDate, '%Y%m%d') as regDate from bbs`
+- READ시 Query 사용 : `select title, content, DATE_FORMAT(regDate, '%Y%m%d') as regDate from bbs`
 
 ### Ver.1029
 ```md
@@ -41,3 +40,4 @@ create table bbs
 		primary key (idx)
 );
 ```
+- Query 수업자료 그대로 사용
