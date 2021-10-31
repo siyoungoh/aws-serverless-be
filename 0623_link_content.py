@@ -62,31 +62,12 @@ def lambda_handler(event, context):
                     "message": "success",
                 })
         elif param_type == 'list':
-            param_curr_page = event['queryStringParameters']['page']
-            param_per_page = event['queryStringParameters']['perPage']
-
-            if param_curr_page is None:
-                param_curr_page = 1
-
-            if param_per_page is None:
-                param_per_page = 10
-
-            start_page = str((int(param_curr_page) - 1) * int(param_per_page))
-
-            cursor.execute("select count(idx) as count from bbs")
-            count = cursor.fetchone()
-            total_count = int(count['count'])
-            total_page = math.ceil(total_count / int(param_per_page))
-            cursor.execute("select idx, title, regDate from bbs limit " + start_page + "," + param_per_page)
+            cursor.execute("select idx, title, regDate from bbs")
             result = cursor.fetchall()
 
             body = json.dumps({
                 "result": "success",
-                "data": {
-                    "contents": result,
-                    "pageOptions": {"perPage": param_per_page, "totalPage": total_page, "currPage": param_curr_page,
-                                    "totalCount": total_count}
-                }
+                "data": result
             })
         elif param_type == 'read':
             idx = event['queryStringParameters']['idx']
